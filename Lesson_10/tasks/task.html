@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1>Задача</h1>
+  <p>
+    Дано історію цін на цінні папери за деякий період (згенерувати від 1 до 10000)
+  </p>
+
+  <script>
+    const minNum = 1
+    const maxNum = 10000
+    let prices = []
+
+    for (let i = 0; i < 10; i++) {
+      let randomNum = minNum + Math.floor(Math.random() * (maxNum - minNum +1))
+      prices.push(randomNum)      
+      }
+
+    document.write(prices)
+    
+    // 1)Сформувати новий масив, у якому є тільки ті, що більші за 1000 грн.
+      let pricesMore1000 = prices.filter((price) => price > 1000)
+      document.write(`<p>1. Mасив, у якому є тільки ті, що більші за 1000 грн. -[${pricesMore1000}]</p>`) 
+
+    // 2)Сформувати новий масив, у якому є номери тільки тих, що більші за 1000 грн.    
+      let indexPricesMore1000 = prices.reduce((arrIndex, element, index) => {     //пустий масив, елемент, індекс
+            if (element > 1000) {
+                arrIndex.push(index)
+            }
+            return arrIndex
+        },
+        [] //початкове значення , накопичувач
+      )
+      document.write(`<p>2. Масив, у якому є номери тільки тих, що більші за 1000 грн - [${indexPricesMore1000}]</p>`) 
+
+    // 3)Сформувати список з тих цін, які більші за попереднє значення        
+      let pricesHigher = prices.reduce((arr, element, index, baseArr) => {
+            if(index > 0 && element > baseArr[index-1]) {
+              arr.push(element)
+            }
+            return arr;
+        },
+       []
+      )
+      document.write(`<p>3. Cписок з тих цін, які більші за попереднє значення - [${pricesHigher}]</p>`)
+
+    // 4)Сформувати новий масив, що міститиме значення цін у відсотках стосовно максимального
+      let percentOfMax = prices.map((element) => element / Math.max(...prices) * 100)
+      let result = percentOfMax.map((element) => element.toFixed())
+      document.write(`<p>4. Сформувати новий масив, що міститиме значення цін у відсотках стосовно максимального -
+      [${(result)}]</p>`)
+
+    // 5)Підрахувати кількість змін цін
+    let changesPrice = prices.reduce(
+      (counter, element, index, baseArr) => (index > 0 && element !== baseArr[length-1]) ? counter +1 : counter,
+      0)
+      document.write(`<p>5. Кількість змін цін - ${changesPrice}</p>`)
+
+    // 6)Визначити, чи є ціна, що менше 1000    
+     if (prices.some((element) => element < 1000)) {
+      document.write('6. Чи є ціна, що менше 1000 - Yes')
+    } else {
+      document.write('6. Чи є ціна, що менше 1000 - No')
+    }
+
+    // 7)Визначати, чи усі ціни більше за 1000
+    if (prices.every((element) => 
+      element > 1000)) document.write(`<p>6. Чи усі ціни більше 1000- Yes</p>`)
+      else document.write(`<p>7. Чи усі ціни більше за 1000 - No</p>`)
+
+    // 8)Підрахувати кількість цін, що більше за 1000
+    let countPriceMore1000 = prices.reduce(
+      (count, element) => (element > 1000 ? count +1 : count),
+      0)
+    document.write(`<p>8. Кількість цін, що більше за 1000 - ${countPriceMore1000}</p>`)
+
+    // 9)Підрахувати суму цін, що більше за 1000
+    let sumPriceMore1000 = prices.reduce(
+      (sum, element) => (element > 1000 ? sum + element : sum),
+      0
+    );
+    document.write(`<p>9. Сума цін, що більше за 1000 - ${sumPriceMore1000}</p>`)
+
+    // 10)Знайти першу ціну, що більше за 1000
+    let firstPriceMore1000 = prices.find((element) => element > 1000)
+    document.write(`<p>10. Перша ціна, що більше за 1000 - ${firstPriceMore1000}</p>`)
+     
+    // 11)Знайти індекс першої ціни, що більше за 1000
+    let firstIndexPriceMore1000 = prices.findIndex((element) => element > 1000)
+    document.write(`<p>11. Індекс першої ціни, що більше за 1000 - [${firstIndexPriceMore1000}]</p>`)
+
+    // 12)Знайти останню ціну, що більше за 1000
+    let lastPriceMore1000 = prices.find((element) => element > 1000)
+    document.write(`<p>12. Остання ціна, що більше за 1000 - ${lastPriceMore1000}</p>`)
+
+    // 13)Знайти індекс останньої ціни, що більше за 1000
+    let lastIndexPriceMore1000 = prices.findLastIndex((element) => element > 1000)
+    document.write(`<p>13. Індекс останньої ціни, що більше за 1000 - [${lastIndexPriceMore1000}]</p>`)
+   
+  </script>
+</body>
+</html>
